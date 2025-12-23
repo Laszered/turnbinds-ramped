@@ -19,10 +19,18 @@ target_include_directories(turnbinds PRIVATE src)
 
 set_property(TARGET turnbinds PROPERTY CXX_STANDARD 26)
 
-target_compile_options(turnbinds PRIVATE
-    -Wall -Werror
-    -Wno-switch
-    -Wno-vla-cxx-extension
+if (MSVC)
+    target_compile_options(turnbinds PRIVATE
+        /W4
+    )
+else()
+    target_compile_options(turnbinds PRIVATE
+        -Wall -Werror
+        -Wno-switch
+        -Wno-vla-cxx-extension
+    )
+endif()
+
 )
 
 target_link_libraries(turnbinds PRIVATE version pathcch)
