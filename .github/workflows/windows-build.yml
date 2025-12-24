@@ -11,15 +11,16 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Build with CMake
-  run: |
-    cmake -S . -B build -A x64
-    cmake --build build --config Release
+      - name: Configure & Build
+        run: |
+          cmake -S . -B build -A x64
+          cmake --build build --config Release
 
-    - name: Upload EXE
-      uses: actions/upload-artifact@v4
-      with:
-        name: turnbinds-ramped
-        path: build/Release/*.exe
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: turnbinds-ramped
+          path: build/Release/*.exe
