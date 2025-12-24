@@ -15,6 +15,7 @@ if (WIN32)
     target_compile_definitions(turnbinds PRIVATE
         WIN32_LEAN_AND_MEAN
         _CRT_SECURE_NO_WARNINGS
+        _AMD64_
     )
 endif()
 
