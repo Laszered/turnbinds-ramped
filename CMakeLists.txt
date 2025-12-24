@@ -6,18 +6,10 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# --------------------------------------------------
-# Executable
-# --------------------------------------------------
-
 add_executable(turnbinds
-    turnbinds.cpp
+    src/turnbinds.cpp
     turnbinds.rc
 )
-
-# --------------------------------------------------
-# Windows settings
-# --------------------------------------------------
 
 if (WIN32)
     target_compile_definitions(turnbinds PRIVATE
@@ -25,10 +17,6 @@ if (WIN32)
         _CRT_SECURE_NO_WARNINGS
     )
 endif()
-
-# --------------------------------------------------
-# Compiler warnings
-# --------------------------------------------------
 
 if (MSVC)
     target_compile_options(turnbinds PRIVATE /W4)
