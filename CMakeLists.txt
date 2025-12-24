@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.20)
-project(turnbinds LANGUAGES CXX)
+
+project(turnbinds LANGUAGES CXX RC)
+
+if (MSVC)
+    set(CMAKE_GENERATOR_PLATFORM x64)
+endif()
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
