@@ -1,43 +1,47 @@
-cmake_minimum_required(VERSION 3.28.3)
-
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release")
+cmake_minimum_required(VERSION 3.16)
 
 project(turnbinds LANGUAGES CXX)
 
-add_executable(turnbinds)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-set_source_files_properties(
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/turnbinds.rc"
-    PROPERTIES OBJECT_DEPENDS
-        "${CMAKE_CURRENT_SOURCE_DIR}/src/turnbinds.ico"
-)
-
-file(GLOB_RECURSE src CONFIGURE_DEPENDS src/*.cpp src/*.rc)
-target_sources(turnbinds PRIVATE ${src})
-
-target_include_directories(turnbinds PRIVATE src)
-
-set_property(TARGET turnbinds PROPERTY CXX_STANDARD 26)
+# --------------------------------------------------
+# Platform / compiler handling
+# --------------------------------------------------
 
 if (MSVC)
-    target_compile_options(turnbinds PRIVATE
-        /W4
-    )
+    add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+endif()
+
+# --------------------------------------------------
+# Sources
+# --------------------------------------------------
+
+add_executable(turnbinds
+    src/main.cpp
+)
+
+# --------------------------------------------------
+# Compiler warnings
+# --------------------------------------------------
+
+if (MSVC)
+    target_compile_options(turnbinds PRIVATE /W4)
 else()
     target_compile_options(turnbinds PRIVATE
-        -Wall -Werror
+        -Wall
+        -Wextra
+        -Werror
         -Wno-switch
         -Wno-vla-cxx-extension
     )
 endif()
 
+# --------------------------------------------------
+# Windows-specific settings
+# --------------------------------------------------
 
-
-target_link_libraries(turnbinds PRIVATE version pathcch)
-
-target_link_options(turnbinds PRIVATE
-    -static
-    $<$<CONFIG:Release>:-Wl,--strip-all>
-)
-
-install(TARGETS turnbinds RUNTIME DESTINATION .)
+if (WIN32)
+    target_compile_definitions(turnbinds PRIVATE WIN32_LEAN_AND_MEAN)
+endif()
