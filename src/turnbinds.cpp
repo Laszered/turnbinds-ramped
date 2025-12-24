@@ -1,3 +1,4 @@
+#include <utility> // for std::to_underlying
 #include <cmath>
 #include <optional>
 #include <utility>
