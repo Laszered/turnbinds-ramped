@@ -1,7 +1,16 @@
 #pragma once
 
+#include <array>
 #include <vector>
+#include <string>
+#include <string_view>
+#include <cstdint>
+#include <cctype>
+
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#include <winternl.h>
+
 
 namespace common {
 
