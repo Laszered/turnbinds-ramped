@@ -8,7 +8,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(turnbinds
     src/turnbinds.cpp
-    turnbinds.rc
+    src/turnbinds.rc
 )
 
 if (WIN32)
